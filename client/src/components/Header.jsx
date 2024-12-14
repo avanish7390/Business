@@ -96,10 +96,10 @@ export default function Header() {
             <Link to={'/dashboard?tab=profile'}>
               <Dropdown.Item>Profile</Dropdown.Item>
             </Link>
-            <Dropdown.Divider />
+            {/* <Dropdown.Divider />
             <Link to={'/dashboard?tab=dash'}>
               <Dropdown.Item>Dashboard</Dropdown.Item>
-            </Link>
+            </Link> */}
             <Dropdown.Divider />
             <Dropdown.Item onClick={handleSignout}>Sign out</Dropdown.Item>
           </Dropdown>
