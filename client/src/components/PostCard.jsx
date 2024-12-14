@@ -14,14 +14,15 @@ export default function PostCard({ post }) {
         <p className="text-base sm:text-lg font-semibold line-clamp-2 text-gray-800">
           {post.title}
         </p>
-        <div className="flex gap-3">
-          <span className="italic text-teal-500 font-medium text-sm sm:text-base">
-            {post.category}
-          </span>
-        </div>
+        <div className="flex items-center justify-center gap-3">
+  <span className="italic text-teal-500 font-medium text-sm sm:text-base">
+    {post.category}
+  </span>
+</div>
+
         <Link
           to={`/post/${post.slug}`}
-          className="mt-3 inline-block text-center bg-blue-500 text-white font-medium px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors duration-300"
+          className="mt-3 inline-block text-center bg-blue-500 text-white font-medium px-4 py-2 rounded-2xl hover:bg-blue-100 transition-colors duration-300"
         >
           Read Post
         </Link>

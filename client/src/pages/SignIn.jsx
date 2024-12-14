@@ -77,17 +77,22 @@ export default function SignIn() {
               id="password" onChange={handleChange}
               />
             </div> */}
-            <Button gradientDuoTone="limeToYellow" type="submit" pill disabled={loading}>
-              {
-                loading ? (
-                  <>
-                  <Spinner size='sm' />
-                  <span className="pl-3">Loading...</span>
-                  </>
-                 ) : (
-                  'Sign In'
-              )}
-            </Button>
+            {/* <Button
+  gradientDuoTone="purpleToBlue"
+  type="submit"
+  pill
+  disabled={loading}
+>
+  {loading ? (
+    <>
+      <Spinner size="sm" />
+      <span className="pl-3">Loading...</span>
+    </>
+  ) : (
+    'Sign In'
+  )}
+</Button> */}
+
             <OAuth />
           </form>
           <div className="flex gap-2 text-sm mt-5
