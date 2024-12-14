@@ -27,7 +27,7 @@ export default function FooterCom() {
                     <Footer.Link href="/about"
                     target="_blank"
                     rel="noopener noreferrer">
-                         BIETBLOG
+                         Business
 
                     </Footer.Link>
                 </Footer.LinkGroup>
