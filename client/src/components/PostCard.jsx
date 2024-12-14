@@ -1,28 +1,27 @@
-
-
 import { Link } from 'react-router-dom';
 
 export default function PostCard({ post }) {
   return (
-    <div className='max-w-xs rounded-lg overflow-hidden shadow-lg bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out cursor-pointer'>
+    <div className="max-w-full sm:max-w-xs rounded-lg overflow-hidden shadow-md bg-white hover:shadow-lg transition-shadow duration-300 ease-in-out cursor-pointer">
       <Link to={`/post/${post.slug}`}>
         <img
           src={post.image}
-          alt='post cover'
-          className='h-[260px] w-full  object-cover group-hover:h-[200px] transition-all duration-300 z-20'
+          alt="post cover"
+          className="h-[200px] w-full object-cover transition-transform duration-300 hover:scale-105"
         />
       </Link>
-      <div className='p-3 flex flex-col gap-2'>
-        <p className='text-lg font-semibold line-clamp-2'>{post.title}</p>
-         <div className="flex gap-3">
-        <span className='italic text-teal-300 font-bold  text-sm' >{post.category}</span>
-        {/* <span className='italic text-teal-300 font-bold text-sm'>{post.course}</span>
-        <span className='italic text-teal-300  font-bold text-sm'>{post.branch}</span> */}
+      <div className="p-4 flex flex-col gap-3">
+        <p className="text-base sm:text-lg font-semibold line-clamp-2 text-gray-800">
+          {post.title}
+        </p>
+        <div className="flex gap-3">
+          <span className="italic text-teal-500 font-medium text-sm sm:text-base">
+            {post.category}
+          </span>
         </div>
-        {/* <span className='italic text-teal-300  font-bold text-sm'>{post.year}</span> */}
         <Link
           to={`/post/${post.slug}`}
-          className='mt-4 text-black font-bold hover:bg-blue-500 rounded-lg'
+          className="mt-3 inline-block text-center bg-blue-500 text-white font-medium px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors duration-300"
         >
           Read Post
         </Link>

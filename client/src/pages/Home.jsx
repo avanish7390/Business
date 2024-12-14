@@ -1,17 +1,15 @@
-
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import PostCard from '../components/PostCard';
 
-// Dummy categories for the posts
 const categories = ['All', 'Restaurants', 'Retail', 'Services', 'Technology', 'Health', 'Entertainment'];
 
 export default function Home() {
-  const [selectedCategory, setSelectedCategory] = useState('All');  // Category filter state
-  const [searchQuery, setSearchQuery] = useState('');  // Search query state
-  const [posts, setPosts] = useState([]);  // Posts state
-  const navigate = useNavigate();  // Hook to navigate between pages
+  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [posts, setPosts] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -26,47 +24,40 @@ export default function Home() {
     fetchPosts();
   }, []);
 
-  // Filter posts by selected category and search query
   const filteredPosts = posts.filter((post) => {
-    // Match category
     const matchesCategory = selectedCategory === 'All' || post.category === selectedCategory;
-
-    // Match search query
     const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase());
-
     return matchesCategory && matchesSearch;
   });
 
-  // Handle card click to navigate to post details
   const handlePostClick = (slug) => {
-    navigate(`/post/${slug}`);  // Redirect to post detail page
+    navigate(`/post/${slug}`);
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-50">
-      <div className="w-full max-w-screen-lg mx-auto text-center">
-
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-b from-purple-100 to-white">
+      <div className="w-full max-w-screen-lg mx-auto text-center px-4">
         {/* Header Section */}
         <div className="flex flex-col gap-5 my-10">
-          <span className="m-auto px-4 py-2 rounded-full bg-gray-100 text-red-500 font-medium">
+          <span className="mx-auto px-6 py-2 rounded-full bg-gray-200 text-red-500 font-semibold text-sm shadow-md">
             No.1 Post Directory Website
           </span>
-          <h1 className="text-5xl font-bold">
+          <h1 className="text-4xl sm:text-5xl font-extrabold">
             Explore & <br /> Get Your <span className="text-purple-500">Nearby Information</span>
           </h1>
-          <p>This is the first page that users will see when they visit the website. It contains a search bar to search for posts.</p>
-          
+          <p className="text-gray-600">Find the best posts, categories, and services all in one place!</p>
+
           {/* Search Bar */}
-          <div className="flex w-[90%] md:w-[60%] lg:w-[40%] shadow-lg border border-gray-100 pl-3 rounded-full items-center gap-4 mx-auto">
-            <input 
-              type="text" 
-              placeholder="Search Your Required Post" 
-              className="w-full py-2 border-none outline-none"
+          <div className="flex items-center w-full max-w-md mx-auto shadow-lg border border-gray-100 rounded-full overflow-hidden bg-white">
+            <input
+              type="text"
+              placeholder="Search for posts"
+              className="flex-grow py-3 px-4 border-none outline-none text-gray-700"
               aria-label="Search for posts"
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}  // Update search query state
+              onChange={(e) => setSearchQuery(e.target.value)}
             />
-            <button className="bg-purple-500 text-white px-4 py-2 rounded-full" aria-label="Search Button">
+            <button className="bg-purple-500 text-white px-6 py-3 hover:bg-purple-600 transition-all">
               Search
             </button>
           </div>
@@ -76,9 +67,9 @@ export default function Home() {
         <div className="mb-6">
           {/* Dropdown for small screens */}
           <div className="block md:hidden">
-            <select 
-              value={selectedCategory} 
-              onChange={(e) => setSelectedCategory(e.target.value)} 
+            <select
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
               className="px-4 py-2 rounded-full bg-gray-100 text-gray-800 w-full"
             >
               {categories.map((category) => (
@@ -90,12 +81,16 @@ export default function Home() {
           </div>
 
           {/* Button group for larger screens */}
-          <div className="hidden md:flex justify-center">
+          <div className="hidden md:flex justify-center flex-wrap gap-2">
             {categories.map((category) => (
-              <button 
+              <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
-                className={`mx-2 px-4 py-2 rounded-full font-medium ${selectedCategory === category ? 'bg-purple-500 text-white' : 'bg-gray-100 text-gray-800'}`}
+                className={`px-4 py-2 rounded-full font-medium transition-all ${
+                  selectedCategory === category
+                    ? 'bg-purple-500 text-white shadow-lg'
+                    : 'bg-gray-100 text-gray-800 hover:bg-purple-100'
+                }`}
               >
                 {category}
               </button>
@@ -103,34 +98,35 @@ export default function Home() {
           </div>
         </div>
 
-        {/* --------- Post Card Section --------- */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10 ml-9 cursor-pointer">
-          {filteredPosts.length > 0 ? (
-            filteredPosts.map((post) => (
-              <div 
-                   key={post.slug} // Use 'slug' as key for better performance
-                   onClick={() => handlePostClick(post.slug)}  // Correctly pass the slug to handlePostClick
-                   className="cursor-pointer"
-                   >
-                <PostCard key={post._id} post={post} />
-              </div>
+        {/* Post Card Section */}
+<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 mt-10 px-4 sm:px-6 lg:px-8">
+  {filteredPosts.length > 0 ? (
+    filteredPosts.map((post) => (
+      <div
+        key={post.slug}
+        onClick={() => handlePostClick(post.slug)}
+        className="cursor-pointer transform hover:scale-105 transition-all duration-300 bg-white rounded-lg shadow-lg overflow-hidden"
+      >
+        <PostCard key={post._id} post={post} />
+      </div>
+    ))
+  ) : (
+    <p className="col-span-full text-center text-gray-600 text-lg">
+      No posts found matching your search.
+    </p>
+  )}
+</div>
 
-            ))
-          ) : (
-            <p>No posts found matching your search.</p>
-          )}
-        </div>
 
         {/* Link to View All Posts */}
         <div className="mt-10">
-          <Link 
-            to="/search" 
-            className="text-lg text-teal-500 hover:underline text-center"
+          <Link
+            to="/search"
+            className="text-lg text-teal-500 hover:text-teal-600 transition-all"
           >
             View All Posts
           </Link>
         </div>
-
       </div>
     </div>
   );
