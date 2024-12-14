@@ -104,7 +104,7 @@ export default function Home() {
         </div>
 
         {/* --------- Post Card Section --------- */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-10 ml-2 cursor-pointer">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10 ml-9 cursor-pointer">
           {filteredPosts.length > 0 ? (
             filteredPosts.map((post) => (
               <div 
