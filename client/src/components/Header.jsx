@@ -1,10 +1,10 @@
 import { Avatar, Button, Dropdown, Navbar } from 'flowbite-react';
 import { useEffect, useState } from 'react';
-import { AiOutlineSearch } from 'react-icons/ai';
-import { FaMoon, FaSun } from 'react-icons/fa';
+// import { AiOutlineSearch } from 'react-icons/ai';
+// import { FaMoon, FaSun } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { toggleTheme } from '../redux/theme/themeSlice';
+// import { toggleTheme } from '../redux/theme/themeSlice';
 import { signoutSuccess } from '../redux/user/userSlice';
 
 export default function Header() {
@@ -13,8 +13,8 @@ export default function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
-  const { theme } = useSelector((state) => state.theme);
-  const [searchTerm, setSearchTerm] = useState('');
+  // const { theme } = useSelector((state) => state.theme);
+  // const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
