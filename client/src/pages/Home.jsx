@@ -1,6 +1,6 @@
 
-import React, { useState, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 import PostCard from '../components/PostCard';
 
@@ -104,7 +104,7 @@ export default function Home() {
         </div>
 
         {/* --------- Post Card Section --------- */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-10 cursor-pointer">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-10 ml-2 cursor-pointer">
           {filteredPosts.length > 0 ? (
             filteredPosts.map((post) => (
               <div 
