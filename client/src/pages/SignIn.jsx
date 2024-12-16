@@ -1,25 +1,24 @@
 import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { signInStart, signInSuccess, signInFailure } from "../redux/user/userSlice";
 import OAuth from "../components/OAuth";
-import { signInFailure, signInStart, signInSuccess } from "../redux/user/userSlice";
-
 
 export default function SignIn() {
   const [formData, setFormData] = useState({});
-  const {loading, error: errorMessage} = useSelector((state) => state.user);
+  const { loading, error: errorMessage } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.id]: e.target.value.trim()});
+    setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if ( !formData.email || !formData.password) {
-     return dispatch(signInFailure('Please fill in all fields'));
-      
+    if (!formData.email || !formData.password) {
+      return dispatch(signInFailure('Please fill in all fields'));
     }
     try {
       dispatch(signInStart());
@@ -32,9 +31,9 @@ export default function SignIn() {
       });
       const data = await res.json();
       if (data.success === false) {
-       dispatch(signInFailure(data.message));
+        dispatch(signInFailure(data.message));
       }
-   
+
       if (res.ok) {
         dispatch(signInSuccess(data));
         navigate('/');
@@ -44,73 +43,83 @@ export default function SignIn() {
     }
   };
 
-   
-  
   return (
-    <div className="min-h-screen mt-40">
-      <div className="flex p-3 max-w-3xl mx-auto flex-col md:flex-row md:items-center gap-9" >
-
-        {/* left */}
-        <div className="flex-1">
-        <Link to="/" className="font-bold dark:text-white text-4xl">
-        <span className="px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white">BIET</span>
-        BLOG
-       </Link>
-       <p className="text-sm mt-5 ">
-       This project is a blog website that allows users to create, read, update, and delete placement, event, toppers and webinars. The project is built using the MERN stack (MongoDB, Express, React, Node.js). It is hosted on render. The project is open source, and the code is available on GitHub.
-       </p>
+    <div className="min-h-screen bg-gradient-to-r from-purple-50 to-blue-50 py-10">
+      <div className="max-w-4xl mx-auto p-5 bg-white rounded-lg shadow-lg flex flex-col md:flex-row gap-8">
+        {/* Left Section */}
+        <div className="flex-1 pt-28">
+          <Link
+            to='/'
+            className="text-xl font-semibold text-center block text-gray-800 mb-6"
+          >
+            <span className="px-4 py-2 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full text-white">Get Biz</span>
+          </Link>
+          <p className="text-gray-600 text-sm md:text-base">
+            Join our community of professionals dedicated to offering the best services. Sign in to discover top-rated businesses in your area!
+          </p>
         </div>
 
-        {/* right */}
-        <div className="flex-1">
-          <form className="flex flex-col " onSubmit={handleSubmit}>
-         
-            {/* <div>
-              <Label value="Your Email" />
-              <TextInput type="email" placeholder="name@company.com"
-              id="email" onChange={handleChange}
+        {/* Right Section (Form) */}
+        <div className="flex-1 p-6 bg-gray-50 rounded-lg shadow-md">
+          <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">Sign In</h2>
+          <form className="space-y-4" onSubmit={handleSubmit}>
+            <div>
+              <Label htmlFor="email" value="Email" className="text-gray-700" />
+              <TextInput
+                type="email"
+                id="email"
+                placeholder="name@company.com"
+                onChange={handleChange}
+                className="mt-2"
+                required
               />
-            </div> */}
-            {/* <div>
-              <Label value="Your Password" />
-              <TextInput type="password" placeholder="*********"
-              id="password" onChange={handleChange}
+            </div>
+
+            <div>
+              <Label htmlFor="password" value="Password" className="text-gray-700" />
+              <TextInput
+                type="password"
+                id="password"
+                placeholder="*********"
+                onChange={handleChange}
+                className="mt-2"
+                required
               />
-            </div> */}
-            {/* <Button
-  gradientDuoTone="purpleToBlue"
-  type="submit"
-  pill
-  disabled={loading}
->
-  {loading ? (
-    <>
-      <Spinner size="sm" />
-      <span className="pl-3">Loading...</span>
-    </>
-  ) : (
-    'Sign In'
-  )}
-</Button> */}
+            </div>
+
+            <Button 
+              className="w-full bg-gradient-to-r from-purple-500 to-blue-500 text-white" 
+              type="submit" 
+              pill 
+              disabled={loading}
+            >
+              {loading ? (
+                <>
+                  <Spinner size="sm" />
+                  <span className="pl-3">Loading...</span>
+                </>
+              ) : (
+                'Sign In'
+              )}
+            </Button>
 
             <OAuth />
-          </form>
-          <div className="flex gap-2 text-sm mt-5
-          ">
-            <span>Don&apos;t have an account</span>
-            <Link to="/sign-up" className="text-blue-500">
+
+            <div className="flex justify-center items-center gap-2 text-sm mt-4">
+              <span className="text-gray-600">Don't have an account?</span>
+              <Link to="/sign-up" className="text-blue-500 hover:underline">
                 Sign Up
               </Link>
-          </div>
-          {
-            errorMessage && (
-              <Alert className="mt-5" color='failure'>
-                {errorMessage}
-              </Alert>
-            )
-          }
+            </div>
+          </form>
+
+          {errorMessage && (
+            <Alert className="mt-5" color="failure">
+              {errorMessage}
+            </Alert>
+          )}
         </div>
       </div>
     </div>
-  )
+  );
 }

@@ -120,11 +120,13 @@ export default function Home() {
 
         {/* Link to View All Posts */}
         <div className="mt-10">
-          <Link
-            to="/search"
-            className="text-lg text-teal-500 hover:text-teal-600 transition-all"
+          <Link 
+            to="/search" 
+           
           >
-            View All Posts
+            <button className="bg-purple-500 text-white px-4 py-1 mb-4 rounded-full" aria-label="View All Businesses">
+              View All Businesses
+            </button>
           </Link>
         </div>
       </div>

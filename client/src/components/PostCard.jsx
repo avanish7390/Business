@@ -20,11 +20,11 @@ export default function PostCard({ post }) {
   </span>
 </div>
 
-        <Link
+<Link
           to={`/post/${post.slug}`}
-          className="mt-3 inline-block text-center bg-blue-500 text-white font-medium px-4 py-2 rounded-2xl hover:bg-blue-100 transition-colors duration-300"
+          className="text-blue-500 border border-blue-500 hover:bg-purple-500 hover:text-white px-4 py-1 rounded-full text-sm mt-3 inline-block"
         >
-          Read Post
+          Show Details
         </Link>
       </div>
     </div>

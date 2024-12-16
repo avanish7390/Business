@@ -1,27 +1,31 @@
-import { Alert, Button,Spinner } from 'flowbite-react';
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import OAuth from '../components/OAuth';
+import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import OAuth from "../components/OAuth";
 
 export default function SignUp() {
   const [formData, setFormData] = useState({});
+  const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState(null);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
+  
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.username || !formData.email || !formData.password) {
-      return setErrorMessage('Please fill out all fields.');
+      return setErrorMessage('Please fill in all fields');
     }
     try {
       setLoading(true);
       setErrorMessage(null);
       const res = await fetch('/api/auth/signup', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify(formData),
       });
       const data = await res.json();
@@ -29,7 +33,7 @@ export default function SignUp() {
         return setErrorMessage(data.message);
       }
       setLoading(false);
-      if(res.ok) {
+      if (res.ok) {
         navigate('/sign-in');
       }
     } catch (error) {
@@ -37,77 +41,91 @@ export default function SignUp() {
       setLoading(false);
     }
   };
+
   return (
-    <div className='min-h-screen mt-40'>
-      <div className='flex p-3 max-w-3xl mx-auto flex-col md:flex-row md:items-center gap-9'>
-        {/* left */}
-        <div className='flex-1'>
-          <Link to='/' className='font-bold dark:text-white text-4xl'>
-            <span className='px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white'>
-            BIET
-            </span>
-            BLOG
+    <div className="min-h-screen bg-gradient-to-r from-purple-50 to-blue-50 py-10">
+      <div className="max-w-4xl mx-auto p-5 bg-white rounded-lg shadow-lg flex flex-col md:flex-row gap-8">
+        {/* Left Section */}
+        <div className="flex-1 pt-28">
+          <Link
+            to='/'
+            className="text-xl font-semibold text-center block text-gray-800 mb-6"
+          >
+            <span className="px-4 py-2 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full text-white">Get Biz</span>
           </Link>
-          <p className='text-sm mt-7'>
-            This is a demo project. You can sign up with your email and password
-            or with Google.
+          <p className="text-gray-600 text-sm md:text-base">
+            We are a team of professionals dedicated to providing the best services. Our mission is to connect you with the best businesses in your area. Sign up now to join us!
           </p>
         </div>
-        {/* right */}
 
-        <div className='flex-1 mt-20'>
-          <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
-            {/* <div>
-              <Label value='Your username' />
+        {/* Right Section (Form) */}
+        <div className="flex-1 p-6 bg-gray-50 rounded-lg shadow-md">
+          <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">Create Your Account</h2>
+          <form className="space-y-4" onSubmit={handleSubmit}>
+            <div>
+              <Label htmlFor="username" value="Username" className="text-gray-700" />
               <TextInput
-                type='text'
-                placeholder='Username'
-                id='username'
+                type="text"
+                id="username"
+                placeholder="Choose a username"
                 onChange={handleChange}
+                className="mt-2"
+                required
               />
-            </div> */}
-            {/* <div>
-              <Label value='Your email' />
+            </div>
+
+            <div>
+              <Label htmlFor="email" value="Email" className="text-gray-700" />
               <TextInput
-                type='email'
-                placeholder='name@company.com'
-                id='email'
+                type="email"
+                id="email"
+                placeholder="name@company.com"
                 onChange={handleChange}
+                className="mt-2"
+                required
               />
-            </div> */}
-            {/* <div>
-              <Label value='Your password' />
+            </div>
+
+            <div>
+              <Label htmlFor="password" value="Password" className="text-gray-700" />
               <TextInput
-                type='password'
-                placeholder='Password'
-                id='password'
+                type="password"
+                id="password"
+                placeholder="Create a password"
                 onChange={handleChange}
+                className="mt-2"
+                required
               />
-            </div> */}
-            {/* <Button
-              gradientDuoTone='purpleToPink'
-              type='submit'
+            </div>
+
+            <Button 
+              className="w-full bg-gradient-to-r from-purple-500 to-blue-500 text-white" 
+              type="submit" 
+              pill 
               disabled={loading}
             >
               {loading ? (
                 <>
-                  <Spinner size='sm' />
-                  <span className='pl-3'>Loading...</span>
+                  <Spinner size="sm" />
+                  <span className="pl-3">Loading...</span>
                 </>
               ) : (
                 'Sign Up'
               )}
-            </Button> */}
+            </Button>
+
             <OAuth />
+
+            <div className="flex justify-center items-center gap-2 text-sm mt-4">
+              <span className="text-gray-600">Already have an account?</span>
+              <Link to="/sign-in" className="text-blue-500 hover:underline">
+                Sign In
+              </Link>
+            </div>
           </form>
-          <div className='flex gap-2 text-sm mt-5'>
-            <span>Have an account?</span>
-            <Link to='/sign-in' className='text-blue-500'>
-              Sign In
-            </Link>
-          </div>
+
           {errorMessage && (
-            <Alert className='mt-5' color='failure'>
+            <Alert className="mt-5" color="failure">
               {errorMessage}
             </Alert>
           )}
